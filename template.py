@@ -130,5 +130,52 @@ plt.ylabel('Average Electric Range (miles)')
 plt.grid(True)
 plt.show()
 
+# Estimated market size of EV in the USA
+
+# calculate the number of EVs registered each year
+ev_registration_counts = ev_data['Model Year'].value_counts().sort_index()
+ev_registration_counts
+
+# In 2021, there were 19,063 EVs registered.
+# In 2022, the number increased to 27708 EVs.
+# In 2023, a significant jump to 57,519 EVs was observed.
+# For 2024, currently, 7,072 EVs are registered, which suggests partial data.
+
+
+# calculate the Compound annual growth rate between a recent year with complete data and earlier year
+
+from scipy.optimize import curve_fit
+import numpy as np
+
+# filter the dataset to include years with complete data, assuming 2023 is the last complete year
+filtered_years = ev_registration_counts[ev_registration_counts.index <= 2023]
+
+# define a function for exponential growth to fit the data
+def exp_growth(x, a, b):
+    return a * np.exp(b * x)
+
+# prepare the data for curve fitting
+x_data = filtered_years.index - filtered_years.index.min()
+y_data = filtered_years.values
+
+# fit the data to the exponential growth function
+params, covariance = curve_fit(exp_growth, x_data, y_data)
+
+# use the fitted function to forecast the number of EVs for 2024 and the next five years
+forecast_years = np.arange(2024, 2024 + 6) - filtered_years.index.min()
+forecasted_values = exp_growth(forecast_years, *params)
+
+# create a dictionary to display the forecasted values for easier interpretation
+forecasted_evs = dict(zip(forecast_years + filtered_years.index.min(), forecasted_values))
+
+print(forecasted_evs)
+
+
+
+
+
+
+
+
 
 #ev_data_cleaned.to_excel("/Users/dheerajkushakula/Downloads/new_file.xlsx")
