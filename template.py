@@ -118,4 +118,17 @@ plt.axvline(ev_data['Electric Range'].mean(), color='red', linestyle='--', label
 plt.legend()
 plt.show()
 
+
+# Average electric range by model year
+average_range_by_year = ev_data.groupby('Model Year')['Electric Range'].mean().reset_index()
+
+plt.figure(figsize=(12, 6))
+sns.lineplot(x='Model Year', y='Electric Range', data=average_range_by_year, marker='o', color='green')
+plt.title('Average Electric Range by Model Year')
+plt.xlabel('Model Year')
+plt.ylabel('Average Electric Range (miles)')
+plt.grid(True)
+plt.show()
+
+
 #ev_data_cleaned.to_excel("/Users/dheerajkushakula/Downloads/new_file.xlsx")
