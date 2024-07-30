@@ -84,4 +84,28 @@ plt.ylabel('Make')
 plt.tight_layout()
 plt.show()
 
+
+# most popular models within the top manufactures 
+# selecting the top 3 manufacturers based on the number of vehicles registered
+top_3_makes = ev_make_distribution.head(3).index
+
+# filtering the dataset for these top manufacturers
+top_makes_data = ev_data[ev_data['Make'].isin(top_3_makes)]
+
+# analyzing the popularity of EV models within these top manufacturers
+ev_model_distribution_top_makes = top_makes_data.groupby(['Make', 'Model']).size().sort_values(ascending=False).reset_index(name='Number of Vehicles')
+
+# visualizing the top 10 models across these manufacturers for clarity
+top_models = ev_model_distribution_top_makes.head(10)
+
+plt.figure(figsize=(12, 8))
+sns.barplot(x='Number of Vehicles', y='Model', hue='Make', data=top_models, palette="viridis")
+plt.title('Top Models in Top 3 Makes by EV Registrations')
+plt.xlabel('Number of Vehicles Registered')
+plt.ylabel('Model')
+plt.legend(title='Make', loc='center right')
+plt.tight_layout()
+plt.show()
+
+
 #ev_data_cleaned.to_excel("/Users/dheerajkushakula/Downloads/new_file.xlsx")
