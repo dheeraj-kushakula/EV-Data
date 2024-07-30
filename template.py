@@ -72,4 +72,16 @@ plt.ylabel('Electric Vehicle Type')
 plt.tight_layout()
 plt.show()
 
+
+# Most popular manufactures and their models 
+ev_make_distribution = ev_data['Make'].value_counts().head(10)  # Limiting to top 10 for clarity
+
+plt.figure(figsize=(12, 6))
+sns.barplot(x=ev_make_distribution.values, y=ev_make_distribution.index, palette="cubehelix")
+plt.title('Top 10 Popular EV Makes')
+plt.xlabel('Number of Vehicles Registered')
+plt.ylabel('Make')
+plt.tight_layout()
+plt.show()
+
 #ev_data_cleaned.to_excel("/Users/dheerajkushakula/Downloads/new_file.xlsx")
