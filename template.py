@@ -59,5 +59,17 @@ plt.tight_layout()
 plt.show()
 
 
+# types of electric vehicles 
+
+# Analyze the types of electric vehicles registered in the dataset
+ev_type_distribution = ev_data['Electric Vehicle Type'].value_counts()
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x=ev_type_distribution.values, y=ev_type_distribution.index, palette="rocket")
+plt.title('Distribution of Electric Vehicle Types')
+plt.xlabel('Number of Vehicles Registered')
+plt.ylabel('Electric Vehicle Type')
+plt.tight_layout()
+plt.show()
 
 #ev_data_cleaned.to_excel("/Users/dheerajkushakula/Downloads/new_file.xlsx")
