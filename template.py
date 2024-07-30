@@ -34,5 +34,30 @@ plt.show()
 
 
 
+# Top 3 counties based on EV Registrations 
+
+# Geographical distribution at county level
+ev_county_distribution = ev_data['County'].value_counts()
+top_counties = ev_county_distribution.head(3).index
+
+# filtering the dataset for these top counties
+top_counties_data = ev_data[ev_data['County'].isin(top_counties)]
+
+# analyzing the distribution of EVs within the cities of these top counties
+ev_city_distribution_top_counties = top_counties_data.groupby(['County', 'City']).size().sort_values(ascending=False).reset_index(name='Number of Vehicles')
+
+# visualize the top 10 cities across these counties
+top_cities = ev_city_distribution_top_counties.head(10)
+
+plt.figure(figsize=(12, 8))
+sns.barplot(x='Number of Vehicles', y='City', hue='County', data=top_cities, palette="magma")
+plt.title('Top Cities in Top Counties by EV Registrations')
+plt.xlabel('Number of Vehicles Registered')
+plt.ylabel('City')
+plt.legend(title='County')
+plt.tight_layout()
+plt.show()
+
+
 
 #ev_data_cleaned.to_excel("/Users/dheerajkushakula/Downloads/new_file.xlsx")
