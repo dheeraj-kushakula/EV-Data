@@ -108,4 +108,14 @@ plt.tight_layout()
 plt.show()
 
 
+# Distribution of EV in the dataset and identify any notable trends
+plt.figure(figsize=(12, 6))
+sns.histplot(ev_data['Electric Range'], bins=30, kde=True, color='royalblue')
+plt.title('Distribution of Electric Vehicle Ranges')
+plt.xlabel('Electric Range (miles)')
+plt.ylabel('Number of Vehicles')
+plt.axvline(ev_data['Electric Range'].mean(), color='red', linestyle='--', label=f'Mean Range: {ev_data["Electric Range"].mean():.2f} miles')
+plt.legend()
+plt.show()
+
 #ev_data_cleaned.to_excel("/Users/dheerajkushakula/Downloads/new_file.xlsx")
