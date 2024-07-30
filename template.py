@@ -172,7 +172,28 @@ print(forecasted_evs)
 
 
 
+# Plot the estimated market size data
 
+# prepare data for plotting
+years = np.arange(filtered_years.index.min(), 2029 + 1)
+actual_years = filtered_years.index
+forecast_years_full = np.arange(2024, 2029 + 1)
+
+# actual and forecasted values
+actual_values = filtered_years.values
+forecasted_values_full = [forecasted_evs[year] for year in forecast_years_full]
+
+plt.figure(figsize=(12, 8))
+plt.plot(actual_years, actual_values, 'bo-', label='Actual Registrations')
+plt.plot(forecast_years_full, forecasted_values_full, 'ro--', label='Forecasted Registrations')
+
+plt.title('Current & Estimated EV Market')
+plt.xlabel('Year')
+plt.ylabel('Number of EV Registrations')
+plt.legend()
+plt.grid(True)
+
+plt.show()
 
 
 
